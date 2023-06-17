@@ -6,7 +6,7 @@
 #SBATCH --mem=186G           # 使用的記憶體量 請參考Queue資源設定
 #SBATCH -o runR.out.log          # Path to the standard output file
 #SBATCH -e runR.err.log          # Path to the standard error ouput file
-#SBATCH --mail-user=
+#SBATCH --mail-user=judychou60@gmail.com
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
 module load pkg/R/4.1.2
