@@ -5,7 +5,7 @@ library(ggplot2)
 library(Cairo)
 
 setwd("/staging/biology/u4432941/dragen_joint_calling/af_compare/af_plot")
-file <- "/staging/biology/u4432941/dragen_accuracy/af_compare/chr1.hg38_multianno.txt"
+file <- "/staging/biology/u4432941/dragen_joint_calling/af_compare/chr1.hg38_multianno.txt"
 
 df <- read.delim(file, sep = '\t')
 
