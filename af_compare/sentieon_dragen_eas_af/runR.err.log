@@ -1,0 +1,50 @@
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
+✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+✔ tibble  3.1.6     ✔ dplyr   1.0.7
+✔ tidyr   1.1.4     ✔ stringr 1.4.0
+✔ readr   2.1.1     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+New names:
+* AF -> AF...22
+* AF_raw -> AF_raw...23
+* AF_male -> AF_male...24
+* AF_female -> AF_female...25
+* AF_afr -> AF_afr...26
+* ...
+Rows: 999 Columns: 1616
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (1612): Chr, Ref, Alt, Func.refGene, Gene.refGene, GeneDetail.refGene, E...
+dbl    (4): Start, End, Otherinfo1, Otherinfo5
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+New names:
+* AF -> AF...22
+* AF_raw -> AF_raw...23
+* AF_male -> AF_male...24
+* AF_female -> AF_female...25
+* AF_afr -> AF_afr...26
+* ...
+Rows: 999 Columns: 123
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (116): Chr, Ref, Alt, Func.refGene, Gene.refGene, GeneDetail.refGene, Ex...
+dbl   (7): Start, End, TWB1492_AF, Otherinfo2, Otherinfo3, Otherinfo5, Other...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+警告訊息：
+1: Use of `input_df[[x_column]]` is discouraged. Use `.data[[x_column]]` instead. 
+2: Use of `input_df[[y_column]]` is discouraged. Use `.data[[y_column]]` instead. 
+3: Use of `input_df[[x_column]]` is discouraged. Use `.data[[x_column]]` instead. 
+4: Use of `input_df[[y_column]]` is discouraged. Use `.data[[y_column]]` instead. 
+警告訊息：
+1: Use of `input_df[[x_column]]` is discouraged. Use `.data[[x_column]]` instead. 
+2: Use of `input_df[[y_column]]` is discouraged. Use `.data[[y_column]]` instead. 
+警告訊息：
+1: Use of `input_df[[x_column]]` is discouraged. Use `.data[[x_column]]` instead. 
+2: Use of `input_df[[y_column]]` is discouraged. Use `.data[[y_column]]` instead. 
+3: Removed 880 rows containing missing values (geom_point). 
