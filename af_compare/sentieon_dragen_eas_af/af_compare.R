@@ -4,8 +4,8 @@ library(tidyverse)
 library(ggplot2)
 
 setwd("/staging/biology/u4432941/dragen_joint_calling/af_compare/sentieon_dragen_eas_af")
-dragen_df <- read_delim("/staging/biology/u4432941/dragen_joint_calling/af_compare/dragen_chr1.hg38_multianno_test.txt")
-sentieon_df <- read_delim("/staging/biology/u4432941/dragen_joint_calling/af_compare/sentieon_chr1.hg38_multianno_test.txt")
+dragen_df <- read_delim("/staging/biology/u4432941/dragen_joint_calling/af_compare/dragen_chr1.hg38_multianno.txt")
+sentieon_df <- read_delim("/staging/biology/u4432941/dragen_joint_calling/af_compare/sentieon_chr1.hg38_multianno.txt")
 
 # Scatter plot function
 scatter_plot <- function(input_df, x_column, y_column){
@@ -117,12 +117,14 @@ union_df <- add_af_to_union(union_df, dragen_df, "Otherinfo1", "dragen_af")
 write.table(union_df, file = "dragen_sentieon_union.txt", sep = "\t", row.names = FALSE)
 
 sentieon_dragen_chr1_af <- scatter_plot(union_df, "sentieon_af", "dragen_af") +
-  labs(x = "Sentieon_TWB1492_AF", y = "DRAGEN_TWB1492_AF")
+  labs(x = "Sentieon_TWB1492_AF", y = "DRAGEN_TWB1492_AF") +
+  geom_point(color = "#F8C471")
 png("sentieon_dragen_chr1_af.png", width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(sentieon_dragen_chr1_af)
 
 sentieon_vqsr_dragen_chr1_af <- scatter_plot(union_df, "sentieon_vqsr_af", "dragen_af") +
-  labs(x = "Sentieon_VQSR_TWB1492_AF", y = "DRAGEN_TWB1492_AF")
+  labs(x = "Sentieon_VQSR_TWB1492_AF", y = "DRAGEN_TWB1492_AF")+
+  geom_point(color = "#F8C471")
 png("sentieon_vqsr_dragen_chr1_af.png", width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(sentieon_vqsr_dragen_chr1_af)
 
