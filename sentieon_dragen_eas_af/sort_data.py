@@ -47,10 +47,14 @@ def main(output_dir, file_dir, para):
 
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
+    print("finish sentieon cleaning ...")
+
     dragen_filtered_df = clean_dragen_df(dragen_df)
+    print("finish dragen cleaning...")
 
     # Merge dataframes
     merged_df = dragen_filtered_df.merge(sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
+    print("finish merging...")
 
     # Get union of three datasets
     union_df = pd.concat([merged_df, dragen_filtered_df, sentieon_filtered_df]).drop_duplicates(subset=['Chr', 'Start', 'End', 'Ref', 'Alt']).sort_values(by='Start')
