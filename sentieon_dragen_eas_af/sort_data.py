@@ -4,9 +4,6 @@ import argparse
 import pandas as pd
 import numpy as np
 
-# output_dir = "/Users/xuanchou/Documents/dragen_joint/sentieon_dragen_eas_af"
-# file_dir = "/Users/xuanchou/Documents/dragen_joint/sentieon_dragen_eas_af"
-# para = "chr1"
 
 def clean_sentieon_df(sentieon_df):
     """
