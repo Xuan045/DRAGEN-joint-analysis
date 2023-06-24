@@ -26,5 +26,5 @@ logfile=./${TIME}_run_${para}.log
 # Redirect standard output and error to the log file
 exec > "$logfile" 2>&1
 
-python sort_data.py -f ${file_dir} -o ${ouput} -p ${para}
+python sort_data.py -o ${ouput} -f ${file_dir} -p ${para}
 #/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript ion_illumina_plot.R /staging/biology/u4432941/ion_proton/TWBB_analysis chr1_
