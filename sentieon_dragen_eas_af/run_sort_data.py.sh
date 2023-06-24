@@ -1,9 +1,9 @@
 #!/usr/bin/sh
 #SBATCH -A MST109178        
 #SBATCH -J SortPy         
-#SBATCH -p ngs186G           # Partition Name 等同PBS裡面的 -q Queue name
-#SBATCH -c 28               # 使用的core數 請參考Queue資源設定
-#SBATCH --mem=186G           # 使用的記憶體量 請參考Queue資源設定
+#SBATCH -p ngs372G           # Partition Name 等同PBS裡面的 -q Queue name
+#SBATCH -c 56               # 使用的core數 請參考Queue資源設定
+#SBATCH --mem=372G           # 使用的記憶體量 請參考Queue資源設定
 #SBATCH -o out.log          # Path to the standard output file
 #SBATCH -e err.log          # Path to the standard error ouput file
 #SBATCH --mail-user=judychou60@gmail.com
@@ -24,4 +24,4 @@ logfile=./${TIME}_run_${para}.log
 exec > "$logfile" 2>&1
 
 python sort_data.py -o /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af -f /staging/biology/u4432941/dragen_joint_calling/annovar_annotation -p chr1
-#/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript ion_illumina_plot.R /staging/biology/u4432941/ion_proton/TWBB_analysis chr1_
+/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af chr1_
