@@ -9,7 +9,10 @@
 #SBATCH --mail-user=judychou60@gmail.com
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
-para='sortPy'
+para="sortPy"
+output="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af"
+file_dir="/staging/biology/u4432941/dragen_joint_calling/annovar_annotation"
+para="chr1"
 
 set -euo pipefail
 module load pkg/Anaconda3
@@ -23,5 +26,5 @@ logfile=./${TIME}_run_${para}.log
 # Redirect standard output and error to the log file
 exec > "$logfile" 2>&1
 
-python sort_data.py -f /staging/biology/u4432941/dragen_joint_calling/af_compare -o /staging/biology/u4432941/dragen_joint_calling/af_compare/sentieon_dragen_eas_af -p chr1
+python sort_data.py -f ${file_dir} -o ${ouput} -p ${para}
 #/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript ion_illumina_plot.R /staging/biology/u4432941/ion_proton/TWBB_analysis chr1_
