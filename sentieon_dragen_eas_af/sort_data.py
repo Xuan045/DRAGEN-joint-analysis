@@ -25,6 +25,9 @@ def clean_sentieon_df(sentieon_df):
     # Rename AF column
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
 
+    # Convert 'Start' column to numeric
+    sentieon_df_vqsr['Start'] = pd.to_numeric(sentieon_df_vqsr['Start'], errors='coerce')
+
     return sentieon_df_vqsr
 
 def clean_dragen_df(dragen_df):
@@ -37,6 +40,9 @@ def clean_dragen_df(dragen_df):
     dragen_df = dragen_df[selected_col]
     # Rename AF column
     dragen_df.rename(columns={'Otherinfo1':'dragen_af'}, inplace=True)
+    
+    # Convert 'Start' column to numeric
+    dragen_df['Start'] = pd.to_numeric(dragen_df['Start'], errors='coerce')
     
     return dragen_df
 
