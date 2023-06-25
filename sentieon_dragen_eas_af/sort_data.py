@@ -43,7 +43,7 @@ def clean_dragen_df(dragen_df):
 def main(output_dir, file_dir, para):
     # Load files
     sentieon_df = pd.read_csv(f"{file_dir}/sentieon_{para}.hg38_multianno.txt", sep="\t")
-    dragen_df = pd.read_csv(f"{file_dir}/dragen_{para}.hg38_multianno.txt", sep="\t", usecols=range(0, dragen_df.columns.get_loc("Otherinfo1")+1))
+    dragen_df = pd.read_csv(f"{file_dir}/dragen_{para}.hg38_multianno.txt", sep="\t", usecols=range(0, 113))
 
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
