@@ -33,24 +33,24 @@ scatter_plot <- function(input_df, x_axis, y_axis) {
 }
 
 # Plot dragen vs. eas
-dragen_eas_plt <- scatter_plot(union_df[union_df$AF_eas > 0,], "AF_eas", "dragen_af") +
+dragen_eas_df <- union_df[union_df$AF_eas > 0,]
+dragen_eas_plt <- scatter_plot(dragen_eas_df, "AF_eas", "dragen_af") +
   labs(x = "gnomAD_eas AF", y = "DRAGEN_TWB1492 AF",
        title = "gnomAD_eas vs. DRAGEN")
 
 ## Save the plot as PNG using cairo device
 png(paste0(para, "dragen_eas.png"), width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(dragen_eas_plt)
-dev.off()
 
 # Plot sentieon vs. eas
-sentieon_eas_plt <- scatter_plot(union_df[union_df$AF_eas > 0,], "AF_eas", "sentieon_af") +
+sentieon_eas_df <- union_df[union_df$AF_eas > 0,]
+sentieon_eas_plt <- scatter_plot(sentieon_eas_df, "AF_eas", "sentieon_af") +
   labs(x = "gnomAD_eas AF", y = "Sentieon_TWB1492 AF",
        title = "gnomAD_eas vs. Sentieon")
 
 ## Save the plot as PNG using cairo device
 png(paste0(para, "sentieon_eas.png"), width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(sentieon_eas_plt)
-dev.off()
 
 # Plot sentieon vs. dragen
 dragen_sentieon_plt <- scatter_plot(union_df, "dragen_af", "sentieon_af") +

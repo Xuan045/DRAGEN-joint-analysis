@@ -23,5 +23,5 @@ logfile=./${TIME}_run_${para}.log
 # Redirect standard output and error to the log file
 exec > "$logfile" 2>&1
 
-python sort_data.py -o /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af -f /staging/biology/u4432941/dragen_joint_calling/annovar_annotation -p chr1
+#python sort_data.py -o /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af -f /staging/biology/u4432941/dragen_joint_calling/annovar_annotation -p chr1
 /work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af chr1_
