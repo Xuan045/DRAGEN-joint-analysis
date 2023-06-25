@@ -1,9 +1,9 @@
 #!/usr/bin/sh
 #SBATCH -A MST109178        
 #SBATCH -J SortPy         
-#SBATCH -p ngs372G           # Partition Name 等同PBS裡面的 -q Queue name
-#SBATCH -c 56               # 使用的core數 請參考Queue資源設定
-#SBATCH --mem=372G           # 使用的記憶體量 請參考Queue資源設定
+#SBATCH -p ngs186G           # Partition Name 等同PBS裡面的 -q Queue name
+#SBATCH -c 28               # 使用的core數 請參考Queue資源設定
+#SBATCH --mem=186G           # 使用的記憶體量 請參考Queue資源設定
 #SBATCH -o out.log          # Path to the standard output file
 #SBATCH -e err.log          # Path to the standard error ouput file
 #SBATCH --mail-user=judychou60@gmail.com
