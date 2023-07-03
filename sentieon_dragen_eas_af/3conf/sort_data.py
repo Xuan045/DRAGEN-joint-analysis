@@ -59,7 +59,7 @@ def main(output_dir, file_dir, para):
     print("finish dragen cleaning...")
 
     # Merge dataframes
-    merged_df = dragen_filtered_df.merge(sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
+    merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
     print("finish merging...")
 
     # Get union of three datasets
