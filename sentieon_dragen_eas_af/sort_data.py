@@ -26,7 +26,7 @@ def clean_sentieon_df(sentieon_df):
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
 
     # Convert 'Start' column to numeric
-    sentieon_df_vqsr['Start'] = pd.to_numeric(sentieon_df_vqsr['Start'], errors='coerce', downcast='float')
+    sentieon_df_vqsr['Start'] = pd.to_numeric(sentieon_df_vqsr['Start'], errors='coerce', downcast='integer')
 
     return sentieon_df_vqsr
 
@@ -42,7 +42,7 @@ def clean_dragen_df(dragen_df):
     dragen_df.rename(columns={'Otherinfo1':'dragen_af'}, inplace=True)
     
     # Convert 'Start' column to numeric
-    dragen_df['Start'] = pd.to_numeric(dragen_df['Start'], errors='coerce', downcast='float')
+    dragen_df['Start'] = pd.to_numeric(dragen_df['Start'], errors='coerce', downcast='integer')
     
     return dragen_df
 
@@ -54,17 +54,20 @@ def main(output_dir, file_dir, para):
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
     print("finish sentieon cleaning ...")
+    sentieon_filtered_df.to_csv(f"{output_dir}/{para}_sentieon.txt", sep='\t', index=False)
+
 
     dragen_filtered_df = clean_dragen_df(dragen_df)
     print("finish dragen cleaning...")
+    dragen_filtered_df.to_csv(f"{output_dir}/{para}_dragen.txt", sep='\t', index=False)
 
     # Merge dataframes
-    merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
-    print("finish merging...")
-    merged_df.to_csv(f"{output_dir}/{para}_merged", sep='\t', index=False)
+    # merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
+    # print("finish merging...")
+    # merged_df.to_csv(f"{output_dir}/{para}_merged.txt", sep='\t', index=False)
 
     # Get union of three datasets
-    union_df = pd.concat([merged_df, dragen_filtered_df, sentieon_filtered_df]).drop_duplicates(subset=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas']).sort_values(by='Start')
+    union_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer')
 
     # Save output
     output_file = f"{output_dir}/{para}_three_union.txt"
