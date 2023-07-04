@@ -61,6 +61,7 @@ def main(output_dir, file_dir, para):
     # Merge dataframes
     merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
     print("finish merging...")
+    merged_df.to_csv(f"{output_dir}/{para}_merged", sep='\t', index=False)
 
     # Get union of three datasets
     union_df = pd.concat([merged_df, dragen_filtered_df, sentieon_filtered_df]).drop_duplicates(subset=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas']).sort_values(by='Start')
