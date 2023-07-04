@@ -25,9 +25,6 @@ def clean_sentieon_df(sentieon_df):
     # Rename AF column
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
 
-    # Convert 'Start' column to numeric
-    sentieon_df_vqsr['Start'] = pd.to_numeric(sentieon_df_vqsr['Start'], errors='coerce', downcast='integer')
-
     return sentieon_df_vqsr
 
 def clean_dragen_df(dragen_df):
@@ -41,15 +38,12 @@ def clean_dragen_df(dragen_df):
     # Rename AF column
     dragen_df.rename(columns={'Otherinfo1':'dragen_af'}, inplace=True)
     
-    # Convert 'Start' column to numeric
-    dragen_df['Start'] = pd.to_numeric(dragen_df['Start'], errors='coerce', downcast='integer')
-    
     return dragen_df
 
 def main(output_dir, file_dir, para):
     # Load files
-    sentieon_df = pd.read_csv(f"{file_dir}/sentieon_{para}.hg38_multianno.txt", sep="\t")
-    dragen_df = pd.read_csv(f"{file_dir}/dragen_3conf_{para}.hg38_multianno.txt", sep="\t", usecols=range(0, 113))
+    sentieon_df = pd.read_csv(f"{file_dir}/sentieon_{para}.hg38_multianno.txt", sep="\t", dtype=str)
+    dragen_df = pd.read_csv(f"{file_dir}/dragen_3conf_{para}.hg38_multianno.txt", sep="\t", usecols=range(0, 113), dtype=str)
 
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
@@ -59,11 +53,6 @@ def main(output_dir, file_dir, para):
     dragen_filtered_df = clean_dragen_df(dragen_df)
     print("finish dragen cleaning...")
     dragen_filtered_df.to_csv(f"{output_dir}/{para}_dragen.txt", sep='\t', index=False)
-
-    # Merge dataframes
-    # merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
-    # print("finish merging...")
-    # merged_df.to_csv(f"{output_dir}/{para}_merged.txt", sep='\t', index=False)
 
     # Get union of three datasets
     union_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer')
