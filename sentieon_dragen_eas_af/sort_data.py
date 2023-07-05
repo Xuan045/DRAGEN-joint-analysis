@@ -26,7 +26,7 @@ def clean_sentieon_df(sentieon_df):
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
 
     # Replace '.' with NaN in sentieon_filtered_df
-    sentieon_df_vqsr = sentieon_df_vqsr.replace('.', np.nan)   
+    sentieon_df_vqsr = sentieon_df_vqsr.replace('.', np.nan)
 
     return sentieon_df_vqsr
 
@@ -48,8 +48,10 @@ def clean_dragen_df(dragen_df):
 
 def main(output_dir, sentieon_file, dragen_file, para):
     # Load files
-    sentieon_df = pd.read_csv(sentieon_file, sep="\t", dtype=str)
-    dragen_df = pd.read_csv(dragen_file, sep="\t", usecols=range(0, 113), dtype=str)
+    col_id = list(range(0, 5)) + list (range(21, 37))
+    sentieon_df = pd.read_csv(sentieon_file, sep="\t", usecols=col_id)
+    col_id = list(range(0, 5)) + list (range(21, 37)) + [112]
+    dragen_df = pd.read_csv(dragen_file, sep="\t", usecols=col_id)
 
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
