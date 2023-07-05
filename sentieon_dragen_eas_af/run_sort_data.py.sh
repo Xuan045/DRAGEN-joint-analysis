@@ -10,7 +10,7 @@
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
 para="sortPy"
-outdir="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af/3conf"
+outdir="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af"
 dragen="/staging/biology/u4432941/dragen_joint_calling/annovar_annotation/dragen_chr1.hg38_multianno.txt"
 sentieon="/staging/biology/u4432941/dragen_joint_calling/annovar_annotation/sentieon_chr1.hg38_multianno.txt"
 sort_py="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af/sort_data.py"
@@ -28,4 +28,4 @@ logfile=./${TIME}_run_${para}.log
 exec > "$logfile" 2>&1
 
 python $sort_py -o $outdir -s $sentieon -d $dragen -p chr1
-#/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af chr1_
+/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R $outdir chr1_

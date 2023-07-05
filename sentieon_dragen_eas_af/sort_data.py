@@ -24,6 +24,9 @@ def clean_sentieon_df(sentieon_df):
     sentieon_df_vqsr = sentieon_df_vqsr[selected_col]
     # Rename AF column
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
+    # Convert Start, End, AF_eas, dragen_af to numeric
+    numeric_col = ["Start", "End", "AF_eas", "sentieon_af"]
+    sentieon_df_vqsr[numeric_col] = sentieon_df_vqsr[numeric_col].apply(pd.to_numeric, errors='coerce')
 
     # Replace '.' with NaN in sentieon_filtered_df
     sentieon_df_vqsr = sentieon_df_vqsr.replace('.', np.nan)
@@ -33,20 +36,23 @@ def clean_sentieon_df(sentieon_df):
 def clean_dragen_df(dragen_df):
     """
     Clean dragen dataframes:
-    1. Select columns to merge.
+    Select columns to merge.
     """
     # Select columns
     selected_col = ["Chr", "Start", "End", "Ref", "Alt", "AF_eas", "Otherinfo1"]
     dragen_df = dragen_df[selected_col]
     # Rename AF column
     dragen_df.rename(columns={'Otherinfo1':'dragen_af'}, inplace=True)
+    # Convert Start, End, AF_eas, dragen_af to numeric
+    numeric_col = ["Start", "End", "AF_eas", "dragen_af"]
+    dragen_df[numeric_col] = dragen_df[numeric_col].apply(pd.to_numeric, errors='coerce')
     
     # Replace '.' with NaN in sentieon_filtered_df
     dragen_df = dragen_df.replace('.', np.nan) 
     
     return dragen_df
 
-def main(output_dir, sentieon_file, dragen_file, para):
+def main(output_dir, dragen_file, sentieon_file, para):
     # Load files
     col_id = list(range(0, 5)) + list (range(21, 37))
     sentieon_df = pd.read_csv(sentieon_file, sep="\t", usecols=col_id)
@@ -63,7 +69,7 @@ def main(output_dir, sentieon_file, dragen_file, para):
     dragen_filtered_df.to_csv(f"{output_dir}/{para}_dragen.txt", sep='\t', index=False)
 
     # Get union of three datasets
-    union_df = pd.merge(sentieon_filtered_df, dragen_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer')
+    union_df = pd.merge(sentieon_filtered_df, dragen_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer').sort_values('Start', ignore_index=True)
 
     # Save output
     output_file = f"{output_dir}/{para}_three_union.txt"

@@ -30,4 +30,4 @@ logfile=./${TIME}_run_${para}.log
 exec > "$logfile" 2>&1
 
 python $sort_py -o $outdir -s $sentieon -d $dragen -p chr1
-#/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R $outdir chr1_
+/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R $outdir chr1_
