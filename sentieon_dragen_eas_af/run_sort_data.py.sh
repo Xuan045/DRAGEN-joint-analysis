@@ -10,6 +10,10 @@
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
 para="sortPy"
+outdir="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af/3conf"
+dragen="/staging/biology/u4432941/dragen_joint_calling/annovar_annotation/dragen_chr1.hg38_multianno.txt"
+sentieon="/staging/biology/u4432941/dragen_joint_calling/annovar_annotation/sentieon_chr1.hg38_multianno.txt"
+sort_py="/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af/sort_data.py"
 
 set -euo pipefail
 module load pkg/Anaconda3
@@ -23,5 +27,5 @@ logfile=./${TIME}_run_${para}.log
 # Redirect standard output and error to the log file
 exec > "$logfile" 2>&1
 
-python sort_data.py -o /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af -f /staging/biology/u4432941/dragen_joint_calling/annovar_annotation -p chr1
-/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af chr1_
+python $sort_py -o $outdir -s $sentieon -d $dragen -p chr1
+#/work/opt/ohpc/Taiwania3/pkg/biology/R/R_v4.1.0/bin/Rscript union_df_plot.R /staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af chr1_
