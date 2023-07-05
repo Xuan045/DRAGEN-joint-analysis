@@ -25,8 +25,8 @@ def clean_sentieon_df(sentieon_df):
     # Rename AF column
     sentieon_df_vqsr.rename(columns={'TWB1492_AF':'sentieon_af'}, inplace=True)
 
-    # Convert 'Start' column to numeric
-    sentieon_df_vqsr['Start'] = pd.to_numeric(sentieon_df_vqsr['Start'], errors='coerce', downcast='integer')
+    # Replace '.' with NaN in sentieon_filtered_df
+    sentieon_df_vqsr = sentieon_df_vqsr.replace('.', np.nan)   
 
     return sentieon_df_vqsr
 
@@ -41,33 +41,27 @@ def clean_dragen_df(dragen_df):
     # Rename AF column
     dragen_df.rename(columns={'Otherinfo1':'dragen_af'}, inplace=True)
     
-    # Convert 'Start' column to numeric
-    dragen_df['Start'] = pd.to_numeric(dragen_df['Start'], errors='coerce', downcast='integer')
+    # Replace '.' with NaN in sentieon_filtered_df
+    dragen_df = dragen_df.replace('.', np.nan) 
     
     return dragen_df
 
-def main(output_dir, file_dir, para):
+def main(output_dir, sentieon_file, dragen_file, para):
     # Load files
-    sentieon_df = pd.read_csv(f"{file_dir}/sentieon_{para}.hg38_multianno.txt", sep="\t")
-    dragen_df = pd.read_csv(f"{file_dir}/dragen_{para}.hg38_multianno.txt", sep="\t", usecols=range(0, 113))
+    sentieon_df = pd.read_csv(sentieon_file, sep="\t", dtype=str)
+    dragen_df = pd.read_csv(dragen_file, sep="\t", usecols=range(0, 113), dtype=str)
 
     # Clean and filter dataframes
     sentieon_filtered_df = clean_sentieon_df(sentieon_df)
     print("finish sentieon cleaning ...")
     sentieon_filtered_df.to_csv(f"{output_dir}/{para}_sentieon.txt", sep='\t', index=False)
-
-
+    
     dragen_filtered_df = clean_dragen_df(dragen_df)
     print("finish dragen cleaning...")
     dragen_filtered_df.to_csv(f"{output_dir}/{para}_dragen.txt", sep='\t', index=False)
 
-    # Merge dataframes
-    # merged_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'])
-    # print("finish merging...")
-    # merged_df.to_csv(f"{output_dir}/{para}_merged.txt", sep='\t', index=False)
-
     # Get union of three datasets
-    union_df = pd.merge(dragen_filtered_df, sentieon_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer')
+    union_df = pd.merge(sentieon_filtered_df, dragen_filtered_df, on=['Chr', 'Start', 'End', 'Ref', 'Alt', 'AF_eas'], how='outer')
 
     # Save output
     output_file = f"{output_dir}/{para}_three_union.txt"
@@ -76,9 +70,10 @@ def main(output_dir, file_dir, para):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-o', '--output_dir', required=True, help='Output directory')
-    parser.add_argument('-f', '--file_dir', required=True, help='Input file directory')
+    parser.add_argument('-o', '--output-dir', required=True, help='Output directory')
+    parser.add_argument('-d', '--dragen-file', required=True, help='DRAGEN file path')
+    parser.add_argument('-s', '--sentieon-file', required=True, help='Sentieon file path')
     parser.add_argument('-p', '--para', required=True, help='Output parameter')
     args = parser.parse_args()
 
-    main(args.output_dir, args.file_dir, args.para)
+    main(args.output_dir, args.dragen_file, args.sentieon_file, args.para)
