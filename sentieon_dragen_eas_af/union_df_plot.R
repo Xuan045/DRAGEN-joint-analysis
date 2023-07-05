@@ -3,9 +3,6 @@
 library(tidyverse)
 library(ggplot2)
 
-# setwd("/Users/xuanchou/Documents/dragen_joint/sentieon_dragen_eas_af/")
-# para <- "chr1_"
-
 args <- commandArgs(trailingOnly = TRUE)
 setwd(args[1])
 para <- args[2]
@@ -17,7 +14,7 @@ scatter_plot <- function(input_df, x_axis, y_axis) {
   cor <- format(cor(as.numeric(input_df[[x_axis]]), as.numeric(input_df[[y_axis]]), 
                     method = "pearson", use = "complete.obs"), digits = 3)
   # Number of variants, add comma as a thousands separator
-  var_count <- format(nrow(input_df[complete.cases(input_df[[x_axis]], input_df[[y_axis]]), ]), big.mark = ',')
+  var_count <- format(nrow(input_df[!is.na(input_df[[x_axis]]) & !is.na(input_df[[y_axis]]), ]), big.mark = ',')
   
   scatter_plot <- ggplot(data = input_df, aes(x = as.numeric(.data[[x_axis]]), y = as.numeric(.data[[y_axis]]))) +
     geom_point(color = "#909497") +
