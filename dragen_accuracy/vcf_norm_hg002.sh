@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 #SBATCH -A MST109178        # Account name/project number
 #SBATCH -J SUBSET_VCF         # Job name
-#SBATCH -p ngs186G           # Partition Name 等同PBS裡面的 -q Queue name
-#SBATCH -c 28               # 使用的core數 請參考Queue資源設定
-#SBATCH --mem=186g           # 使用的記憶體量 請參考Queue資源設定
+#SBATCH -p ngs92G           # Partition Name 等同PBS裡面的 -q Queue name
+#SBATCH -c 14               # 使用的core數 請參考Queue資源設定
+#SBATCH --mem=92g           # 使用的記憶體量 請參考Queue資源設定
 #SBATCH -o subset.out.log          # Path to the standard output file
 #SBATCH -e subset.err.log          # Path to the standard error ouput file
 #SBATCH --mail-user=judychou60@gmail.com   
@@ -15,4 +15,5 @@ REF=/staging/reserve/paylong_ntu/AI_SHARE/reference/DRAGEN/v3.9.0/hs38DH/hs38DH.
 para=HG002
 
 # Split multiallelic sites and left-align
-$BCFTOOLS norm -f $REF -m- -Oz -o ${para}.norm.vcf $vcf
+$BCFTOOLS norm -f $REF -m- -Oz -o ${para}.norm.vcf.gz $vcf
+tabix ${para}.norm.vcf.gz

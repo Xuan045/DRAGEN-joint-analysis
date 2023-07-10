@@ -18,11 +18,11 @@ REF=/staging/reserve/paylong_ntu/AI_SHARE/reference/DRAGEN/v3.9.0/hs38DH/hs38DH.
 #$BCFTOOLS reheader -s sample_name.txt $vcf | $BCFTOOLS view -s HG002 -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002.vcf.gz
 
 # Split multiallelic sites
-$BCFTOOLS norm -f $REF -m- -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz TWB1492_HG002_dragenIGG_joingcalling_HG002.vcf.gz
+#$BCFTOOLS norm -f $REF -m- -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz TWB1492_HG002_dragenIGG_joingcalling_HG002.vcf.gz
 
 # AC > 0
-$BCFTOOLS view -c 1 -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split_AC1.vcf.gz TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz
-tabix -p vcf TWB1492_HG002_dragenIGG_joingcalling_HG002_split_AC1.vcf.gz
+#$BCFTOOLS view -c 1 -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split_AC1.vcf.gz TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz
+#tabix -p vcf TWB1492_HG002_dragenIGG_joingcalling_HG002_split_AC1.vcf.gz
 # Remove "AD" GT info
-#$BCFTOOLS annotate -x FORMAT/AD TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split_rmAD.vcf.gz
+$BCFTOOLS annotate -x FORMAT/AD TWB1492_HG002_dragenIGG_joingcalling_HG002_split.vcf.gz -Oz -o TWB1492_HG002_dragenIGG_joingcalling_HG002_split_rmAD.vcf.gz
 #rm TWB1492_HG002_dragenIGG_joingcalling.vcf.gz

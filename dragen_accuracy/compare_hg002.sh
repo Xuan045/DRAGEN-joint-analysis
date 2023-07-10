@@ -10,7 +10,7 @@
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
 gg_vcf=/staging/biology/u4432941/dragen_joint_calling/dragen_accuracy/TWB1492_HG002_dragenIGG_joingcalling_HG002_split_AC1.vcf.gz
-single_vcf=/staging/biology/u4432941/dragen_joint_calling/dragen_accuracy/HG002.norm.vcf
+single_vcf=/staging/biology/u4432941/dragen_joint_calling/dragen_accuracy/HG002.norm.vcf.gz
 BCFTOOLS="/opt/ohpc/Taiwania3/pkg/biology/BCFtools/bcftools_v1.13/bin/bcftools"
 outdir=/staging/biology/u4432941/dragen_joint_calling/dragen_accuracy/compare_hg002
 mkdir -p $outdir
