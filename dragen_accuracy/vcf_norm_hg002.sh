@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 #SBATCH -A MST109178        # Account name/project number
-#SBATCH -J SUBSET_VCF         # Job name
+#SBATCH -J SUBSET_gVCF         # Job name
 #SBATCH -p ngs92G           # Partition Name 等同PBS裡面的 -q Queue name
 #SBATCH -c 14               # 使用的core數 請參考Queue資源設定
 #SBATCH --mem=92g           # 使用的記憶體量 請參考Queue資源設定
@@ -16,4 +16,5 @@ para=HG002
 
 # Split multiallelic sites and left-align
 $BCFTOOLS norm -f $REF -m- -Oz -o ${para}.norm.vcf.gz $vcf
-tabix ${para}.norm.vcf.gz
+$BCFTOOLS annotate -x FORMAT/AD -Oz -o ${para}.norm.rmAD.vcf.gz ${para}.norm.vcf.gz
+tabix ${para}.norm.rmAD.vcf.gz
