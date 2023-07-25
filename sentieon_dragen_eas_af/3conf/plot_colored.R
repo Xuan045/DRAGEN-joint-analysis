@@ -5,6 +5,7 @@ library(ggplot2)
 
 setwd("/staging/biology/u4432941/dragen_joint_calling/sentieon_dragen_eas_af/3conf/")
 union_df <- read.delim("chr1_three_union.txt", header = TRUE)
+para <- "chr1_"
 
 # replace "." with NA in the AF_eas column 
 union_df$AF_eas[union_df$AF_eas == "."] <- NA
