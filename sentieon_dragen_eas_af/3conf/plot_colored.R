@@ -57,8 +57,7 @@ print(dragen_eas_plt)
 dragen_eas_color_only_plt <- scatter_plot(union_df[(union_df$AF_eas > 0) & (union_df$low_sentieon == TRUE),], 
                                           "AF_eas", "dragen_af", "low_sentieon", "#F8C471") +
   labs(x = "gnomAD_eas AF", y = "DRAGEN_TWB1492 AF",
-       title = "gnomAD_eas vs. DRAGEN") +
-  theme(plot.subtitle = element_blank())
+       title = "gnomAD_eas vs. DRAGEN")
 png(paste0(para, "dragen_eas_colored_only.png"), width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(dragen_eas_color_only_plt)
 
@@ -86,7 +85,6 @@ print(sentieon_eas_2_plt)
 sentieon_eas_color_only_plt <- scatter_plot(union_df[(union_df$AF_eas > 0) & (union_df$high_dragen == TRUE),], 
                                           "AF_eas", "sentieon_af", "high_dragen", "#7FB3D5") +
   labs(x = "gnomAD_eas AF", y = "Sentieon_TWB1492 AF",
-       title = "gnomAD_eas vs. Sentieon") +
-  theme(plot.subtitle = element_blank())
+       title = "gnomAD_eas vs. Sentieon")
 png(paste0(para, "sentieon_eas_colored_only.png"), width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
 print(sentieon_eas_color_only_plt)
