@@ -89,4 +89,4 @@ sentieon_eas_color_only_plt <- scatter_plot(union_df[(union_df$AF_eas > 0) & (un
        title = "gnomAD_eas vs. Sentieon") +
   theme(plot.subtitle = element_blank())
 png(paste0(para, "sentieon_eas_colored_only.png"), width = 11.6, height = 6.8, units = "in", res = 500, type = "cairo")
-print(dragen_eas_color_only_plt)
+print(sentieon_eas_color_only_plt)
