@@ -21,7 +21,8 @@ mkdir -p $para
 cd $para
 
 # Load Python2
-module load biology/Python/2.7.18
+module load biology
+module load Python/2.7.18
 export HGREF=$ref
 
 set -euo pipefail

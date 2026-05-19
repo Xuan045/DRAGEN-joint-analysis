@@ -6,7 +6,7 @@
 #SBATCH --mem=186g           # 使用的記憶體量 請參考Queue資源設定
 #SBATCH -o subset.out.log          # Path to the standard output file
 #SBATCH -e subset.err.log          # Path to the standard error ouput file
-#SBATCH --mail-user=judychou60@gmail.com   
+#SBATCH --mail-user=r11455006@g.ntu.edu.tw
 #SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
 
 gg_vcf=/staging/biology/u4432941/dragen_joint_calling/dragen_accuracy/HG002_IGG_norm_confidence/HG002_IGG_norm_confidence.vcf.gz

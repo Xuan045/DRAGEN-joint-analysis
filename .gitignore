@@ -1,0 +1,17 @@
+# Logs
+*.log
+*.err.log
+*.out.log
+
+# Mac OS
+.DS_Store
+**/.DS_Store
+
+# Output and benchmark directories
+bcftools_stat/
+confident_region/
+hg002_benchmark/
+sentieon_jc/
+dragen_norm/
+dragen_accuracy/HG002_*/
+*_output_shards_vc_filter/

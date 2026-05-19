@@ -1,20 +1,25 @@
 #!/usr/bin/bash
-#SBATCH -A MST109178        # Account name/project number
-#SBATCH -J DRAGEN         # Job name
-#SBATCH -p ngs92G           # Partition Name 等同PBS裡面的 -q Queue name
-#SBATCH -c 14               # 使用的core數 請參考Queue資源設定
-#SBATCH --mem=92g           # 使用的記憶體量 請參考Queue資源設定
-#SBATCH -o dragen.out.log          # Path to the standard output file
-#SBATCH -e dragen.err.log          # Path to the standard error ouput file
+#SBATCH -A MST109178
+#SBATCH -J DRAGEN
+#SBATCH -p ngs92G
+#SBATCH -c 14
+#SBATCH --mem=92g
+#SBATCH -o dragen.out.log
+#SBATCH -e dragen.err.log
 #SBATCH --mail-user=
-#SBATCH --mail-type=END              # 指定送出email時機 可為NONE, BEGIN, END, FAIL, REQUEUE, ALL
+#SBATCH --mail-type=END
 
 # Below parameters should be modified
 # List of samples to perform gvcf-genotyper
-sample_list=/staging/biology/u4432941/dragen_joint_calling/TWB1492_path.list
-output_dir=TWB1492_output_shards
+sample_list="${PWD}/path_list/TWB1480_path.list"
+output_dir="${PWD}/TWB1480_output_shards_vc_filter"
+
+# Removes the <NON_REF> symbolic allele from the output of gVCF Genotyper.
 gg_remove_nonref=true
+# The gVCF Genotyper does not print variant alleles that are not called (hom-ref genotype) in any sample.
 gg_discard_ac_zero=true
+# Discard input variants that failed filters in the upstream caller.
+gg_vc_filter=true
 
 IGG_dir=/opt/ohpc/Taiwania3/pkg/biology/IGG/IGG_software_build_v4.0.3_and_local_demo/
 dragen=$(realpath $IGG_dir/install/bin/dragen)
@@ -24,7 +29,7 @@ num_threads=48
 num_shards=102
 ulimit -n 71812
 ulimit -u 16384
-module load biology/bcftools/1.13
+
 mkdir -p $output_dir
 
 shard=$1
@@ -42,4 +47,5 @@ $dragen \
     --output-directory $shard_dir \
     --ht-reference $ref_fasta \
     --gg-remove-nonref $gg_remove_nonref \
-    --gg-discard-ac-zero $gg_discard_ac_zero
+    --gg-discard-ac-zero $gg_discard_ac_zero \
+    --gg-vc-filter $gg_vc_filter
